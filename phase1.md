@@ -42,7 +42,7 @@ Our chosen language for this project is **Python**. We picked it mainly because 
 
 ###### If we had to use another language (Java)
 
-It would probably be harder to deal with all the different ways thigns can go wrong when scarping
+It would probably be harder to deal with all the different ways thigns can go wrong when scarping(bad HTML, missing files network errors, etc). Java will require us to handle these exceptions really explicitly, which can be good for safety but would slow us down a lot. Plus, Java introduces boilerplate code and complexity for those who aren't familiar with it.
 
 **4. What build/dependency management tool will you use (e.g. uv or poetry for Python; Gradle or Maven for Java; something else)? Has anyone in the group used it before — or will this be the first time setting up a project with it?**
 
