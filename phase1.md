@@ -84,11 +84,11 @@ If a serious bug is found two days before the deadline, we would first reproduce
 
 **10. What will convince your team that a feature is "finished"?**
 
-[Answer]
+A feature will be considered finished when it meets the project requirements, works as expected, has appropriate tests, and passes all relevant tests. It should also be reviewed by another team member before being merged into the main branch.
 
 **11. If two group members disagree about whether software is "working correctly", how will you resolve that disagreement?**
 
-[Answer]
+If two group members disagree about whether the software is working correctly, we will first check the project specification and any official clarifications. We will then create a test case for the disputed behaviour and compare the actual result with the expected result. If the specification is still unclear, we will discuss the issue with the teaching staff and document any necessary assumptions.
 
 ---
 
@@ -101,7 +101,7 @@ If a serious bug is found two days before the deadline, we would first reproduce
 
 **13. Suppose a group member's contribution doesn't pass your linting or type checking checks. What will be the consequences? Will merges be blocked if these checks fail, or will the checks be advisory only?**
 
-[Answer]
+If a contribution does not pass the agreed linting or type checking checks, the author should fix the reported issues before merging. In most cases, failed checks should block the merge, although minor advisory warnings may be reviewed by the team if they do not affect correctness or maintainability.
 
 ---
 
@@ -125,19 +125,19 @@ If a serious bug is found two days before the deadline, we would first reproduce
 
 **16. Suppose your scraper is finished and submitted. Now imagine another student is trying to break your software (get it to exhibit failures or unexpected behaviour). What might they try first?**
 
-[Answer]
+They might first try invalid or unusual inputs, such as broken URLs, empty queries, unsupported file types, malformed documents, or pages with unexpected HTML. They may also try situations such as timeouts, server errors, duplicate links, or very large documents to see whether the scraper handles them correctly without crashing.
 
 **17. How will you know that your software is producing the correct output, rather than merely some output?**
 
-[Answer]
+We will use test cases with known expected results and compare them with the actual output of the program. We can also manually check some retrieved documents and query results against the source website to confirm that the software is returning the correct information.
 
 **18. What evidence would increase your confidence that your software is reliable?**
 
-[Answer]
+We would have more confidence in the software if it consistently passes a wide range of tests, including normal cases, edge cases, and expected failure cases. Successful CI runs and code reviews by other team members would also increase our confidence in its reliability.
 
 **19. At this stage of the project, what do you think will be the biggest challenge in producing reliable software?**
 
-[Answer]
+The biggest challenge will likely be dealing with factors outside our control, especially changes or failures in the external website. Broken links, network problems, unexpected responses, and changes in page structure may make it difficult to ensure the scraper behaves reliably in every situation.
 
 ---
 
@@ -145,7 +145,7 @@ If a serious bug is found two days before the deadline, we would first reproduce
 
 **20. What will be your code review process — does someone other than the author review changes before merging, or is this informal?**
 
-[Answer]
+Changes will be made on separate branches and submitted through Pull Requests. Other team members will review the changes before they are merged into the protected main branch. Reviewers will check the code, tests, and whether the change meets the project requirements. Any issues found during review should be fixed before approval and merging.
 
 ---
 
