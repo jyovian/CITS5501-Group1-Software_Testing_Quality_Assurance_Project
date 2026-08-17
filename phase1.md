@@ -6,7 +6,7 @@
 
 **Group members:**
 
-- Juan Yeremia Yovian - Student ID: 24911605 - Github: 
+- Juan Yeremia Yovian - Student ID: 24911605 - Github:
 - Jinghan Wu - Student ID: 24289151 - Github: Jinghan00
 -
 -
@@ -15,6 +15,7 @@
 ## Planning and organization
 
 **1. Where is your group's Collaboration & Workflow Plan maintained? Is it in the Git repository, or elsewhere?**
+
 
 **2. What tool or approach are you using to track assigned tasks and completion? Why did you choose it? Has anyone in the group used it before?**
 
@@ -50,7 +51,8 @@ It would probably be harder to deal with all the different ways things can go wr
 
 **4. What build/dependency management tool will you use (e.g. uv or poetry for Python; Gradle or Maven for Java; something else)? Has anyone in the group used it before — or will this be the first time setting up a project with it?**
 
-[Answer]
+> [PENDING APPROVAL]
+>We will use **uv** to manage our dependencies and virtual environment. We chose it because it's fast, keeps a lockfile so everyone in the group installs the exact same package versions, and it's already available in the environment our project will be tested in. This will be the first time most of the group has used uv specifically, although everyone is familiar with tools like pip or venv before, so picking it up shouldn't take long.
 
 ---
 
@@ -67,7 +69,6 @@ The software could stop working if the website changes its structure, URLs, or d
 **7. Which components of your project do you think will be easiest to test? Which do you expect will be hardest?**
 
 - The easiest components to test will probably be functions that process fixed inputs, such as URL handling, file type detection, text processing, and query logic. These can be tested using known inputs and expected outputs.
-
 - The hardest components to test will be network requests and interactions with the real website. These depend on external factors such as connection problems, server errors, rate limits, and changes to the website. These behaviours are harder to reproduce consistently in tests.
 
 **8. What assumptions is your software likely to make about the website it scrapes? How could those assumptions be violated?**
