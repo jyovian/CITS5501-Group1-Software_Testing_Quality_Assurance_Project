@@ -16,6 +16,8 @@
 
 **1. Where is your group's Collaboration & Workflow Plan maintained? Is it in the Git repository, or elsewhere?**
 
+Our Collaboration & Workflow Plan is maintained in the Git repository at `docs/collaboration-workflow-plan.md`. Keeping it with the project makes the plan accessible to every member, records its revision history, and allows proposed changes to be reviewed through the same pull-request process used for the rest of the project.
+
 **2. What tool or approach are you using to track assigned tasks and completion? Why did you choose it? Has anyone in the group used it before?**
 
 We are using GitHub Projects that links directly to our repository's Issues. This was chosen because it's a simple and convenient way of tracking our progress. No extra app or account or tool required. Everyone already has a GitHub account. It also links directly to commits/PRs. Some members of the group have used GitHub Projects before, while others are already familiar with basic GitHub functions.
