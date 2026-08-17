@@ -8,7 +8,7 @@
 
 - Juan Yeremia Yovian - Student ID: 24911605 - Github: 
 - Jinghan Wu - Student ID: 24289151 - Github: Jinghan00
--
+- Shee Wang - Student ID: 24368932 - Github: sheewang
 -
 -
 
