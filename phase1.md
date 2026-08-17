@@ -113,7 +113,9 @@ If a contribution does not pass the agreed linting or type checking checks, the 
 
 **14. What test framework will you use (e.g. pytest for Python; JUnit 5 for Java; something else)? Has the group used it before, or only heard of it?**
 
-[Answer]
+> [PENDING APPROVAL]
+>
+> We will use **pytest**. We chose it over Python's built-in `unittest` module because it lets us write tests with less boilerplate, and some features make it easy to run the same test against many different input values, which suits the kind of equivalence-class and boundary testing we'll need for a scraper handling lots of different edge cases. Some of the group have not used pytest before.
 
 ---
 
