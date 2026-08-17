@@ -1,4 +1,4 @@
-# CITS5501 Project Phase 1 Report
+# [](https://)[](https://)[](https://)[](https://)[](https://)CITS5501 Project Phase 1 Report
 
 **Group name:**
 
@@ -15,7 +15,6 @@
 ## Planning and organization
 
 **1. Where is your group's Collaboration & Workflow Plan maintained? Is it in the Git repository, or elsewhere?**
-
 
 **2. What tool or approach are you using to track assigned tasks and completion? Why did you choose it? Has anyone in the group used it before?**
 
@@ -52,7 +51,7 @@ It would probably be harder to deal with all the different ways things can go wr
 **4. What build/dependency management tool will you use (e.g. uv or poetry for Python; Gradle or Maven for Java; something else)? Has anyone in the group used it before — or will this be the first time setting up a project with it?**
 
 > [PENDING APPROVAL]
->We will use **uv** to manage our dependencies and virtual environment. We chose it because it's fast, keeps a lockfile so everyone in the group installs the exact same package versions, and it's already available in the environment our project will be tested in. This will be the first time most of the group has used uv specifically, although everyone is familiar with tools like pip or venv before, so picking it up shouldn't take long.
+> We will use **uv** to manage our dependencies and virtual environment. We chose it because it's fast, keeps a lockfile so everyone in the group installs the exact same package versions, and it's already available in the environment our project will be tested in. This will be the first time most of the group has used uv specifically, although everyone is familiar with tools like pip or venv before, so picking it up shouldn't take long.
 
 ---
 
@@ -98,7 +97,11 @@ If two group members disagree about whether the software is working correctly, w
 **12. [Python groups] Will you use a type checker (e.g. mypy or pyright), and if so, will it run in CI or just periodically/manually? Has anyone used one before? Do you plan to use a linter (e.g. pylint, black)?**
 **[Java groups] Is your team familiar with any static analysis/linting tools (e.g. Checkstyle, SpotBugs, PMD)? Do you plan to use any?**
 
-[Answer]
+> [PENDING APPROVAL]
+>
+> We will use **mypy** as our type checker, and it will run automatically as part of our CI pipeline on every push and pull request, rather than just being run manually. This means type errors get caught early before the code is even reviewed, rather than relying on individual memebrs remembering to run it themselves.
+>
+> For linting and formatting, we will use **ruff**, which covers what tools like pylint and black would normally do separately, but in a single tool. Some of the group has not used mypy or ruff before before, so we expect a learning curve.
 
 **13. Suppose a group member's contribution doesn't pass your linting or type checking checks. What will be the consequences? Will merges be blocked if these checks fail, or will the checks be advisory only?**
 
