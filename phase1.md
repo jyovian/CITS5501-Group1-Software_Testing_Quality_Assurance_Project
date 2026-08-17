@@ -123,7 +123,9 @@ If a contribution does not pass the agreed linting or type checking checks, the 
 
 **15. Will you set up continuous integration (e.g. GitHub Actions) to run your test suite automatically, or run tests manually before submission? Have any members of your group used continuous integration before?**
 
-[Answer]
+> [PENDING APPROVAL]
+>
+> We will use GitHub Actions to automatically run our linter, type checker, and test suite every time someone pushes code or opens a pull request. We chose to automate this rather than run tests manually, since manual testing is easy to forget or skip, and automation means every change gets checked the same way without relying on someone remembering to do it. Most members of the group have not set up CI before, so this will be a new process for the team to learn.
 
 ---
 
