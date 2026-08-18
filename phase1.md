@@ -1,4 +1,4 @@
-# [](https://)[](https://)[](https://)[](https://)[](https://)CITS5501 Project Phase 1 Report
+# CITS5501 Project Phase 1 Report
 
 **Group name:**
 
@@ -9,7 +9,7 @@
 - Juan Yeremia Yovian - Student ID: 24911605 - Github:
 - Jinghan Wu - Student ID: 24289151 - Github: Jinghan00
 - Shee Wang - Student ID: 24368932 - Github: sheewang
--
+- Gelani Nimit Sureshbhai - Student ID: 24765784 - Github: Fighterdx
 -
 
 ## Planning and organization
@@ -163,4 +163,9 @@ Changes will be made on separate branches and submitted through Pull Requests. O
 
 List any assumptions made while completing this report, numbered (A001, A002, ...), with justification.
 
-- **A001:** [Assumption] — [Reasoning]
+- **A001:** We are assuming the policy library site we'll eventually be given is a fairly standard, server-rendered site — i.e. the documents are linked directly from normal HTML pages rather than loaded in through JavaScript. We won't actually see the site until after Phase 1, so this is a guess, but it's the more common case and it's what our planned tooling (requests-style fetching plus HTML parsing) is built around. If it turns out the site relies heavily on JavaScript, we'd need to bring in something like a headless browser instead.
+- **A002:** We're assuming the documents on the site are publicly accessible and don't sit behind a login. None of our risk planning in Q5–Q8 accounts for authentication, so if a login turns out to be required, that's extra work we haven't scoped yet.
+- **A003:** We're assuming that scraping this particular site is allowed — whether through its robots.txt, terms of use, or because it's been set up specifically for this unit. This matters for how politely our scraper needs to behave (request rate, retry logic), which ties into our answer for Q5.
+- **A004:** We're assuming the GitHub Actions runners we use for CI will have normal outbound internet access, in case any of our tests end up hitting the real site rather than a mocked version of it. If that's not reliable, we'll need to rely more on mocked responses for CI and treat live-site tests as something we only run locally.
+- **A005:** The project brief only guarantees that `python3`, `uv`, and `openjdk-21-jdk` are installed in the marking environment (see section 2.5). We're assuming that's enough — that mypy, ruff, and pytest don't need to be separately installed, because `uv` will pull them in from our project's lockfile automatically.
+- **A006:** We're assuming the scope stays limited to the three document formats named in the brief — PDF, Word, and RTF. If the real site also serves other formats (e.g. plain text or OpenDocument files), we'd treat those as out of scope unless told otherwise, rather than trying to support everything we might encounter.
