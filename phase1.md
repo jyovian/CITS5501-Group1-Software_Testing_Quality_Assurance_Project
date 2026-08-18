@@ -9,7 +9,7 @@
 - Juan Yeremia Yovian - Student ID: 24911605 - Github:
 - Jinghan Wu - Student ID: 24289151 - Github: Jinghan00
 - Shee Wang - Student ID: 24368932 - Github: sheewang
--
+- Laura Acosta Vargas - Student ID: 23802255 - Github: laura-camila-av
 -
 
 ## Planning and organization
@@ -20,7 +20,7 @@ Our Collaboration & Workflow Plan is maintained in the Git repository at `docs/c
 
 **2. What tool or approach are you using to track assigned tasks and completion? Why did you choose it? Has anyone in the group used it before?**
 
-We are using GitHub Projects that links directly to our repository's Issues. This was chosen because it's a simple and convenient way of tracking our progress. No extra app or account or tool required. Everyone already has a GitHub account. It also links directly to commits/PRs. Some members of the group have used GitHub Projects before, while others are already familiar with basic GitHub functions.
+We are using GitHub Projects that links directly to our repository's Issues. This was chosen because it's a simple and convenient way of tracking our progress. Also, Github provides a clear and permanent history of changes which is useful for reviewing decisions and resolving any conflicts. No extra app or account or tool required. Everyone already has a GitHub account. It also links directly to commits/PRs. Some members of the group have used GitHub Projects before, while others are already familiar with basic GitHub functions.
 
 ---
 
@@ -82,7 +82,7 @@ Our software will probably assume that the website structure stays mostly consis
 
 **9. Suppose a serious bug is discovered two days before the deadline. How would your team investigate and respond?**
 
-If a serious bug is found two days before the deadline, we would first reproduce it and identify the affected component. The issue would be given high priority and assigned to appropriate team members. If necessary, non-essential work would be paused. After fixing the bug, we would run the relevant tests and regression tests, review the change, and merge it only after confirming that the problem is resolved.
+If a serious bug is found two days before the deadline, we would first reproduce it and identify the affected component. The issue would be given high priority and assigned to appropriate team members, ideally someone who worked on that section of code, to minimise further errors. If necessary, non-essential work would be paused. After fixing the bug, we would run the relevant tests and regression tests, review the change, and merge it only after confirming that the problem is resolved.
 
 **10. What will convince your team that a feature is "finished"?**
 
@@ -155,7 +155,7 @@ The biggest challenge will likely be dealing with factors outside our control, e
 
 **20. What will be your code review process — does someone other than the author review changes before merging, or is this informal?**
 
-Changes will be made on separate branches and submitted through Pull Requests. Other team members will review the changes before they are merged into the protected main branch. Reviewers will check the code, tests, and whether the change meets the project requirements. Any issues found during review should be fixed before approval and merging.
+Changes will be made on separate branches and submitted through Pull Requests. Other team members will review the changes before they are merged into the protected main branch. Reviewers will check the code, tests, and whether the change meets the project requirements. Reviews should include constructive feedback and comments in all pull requests they review or approve as proof that a proper check was actually completed. Any issues found during review should be created as a Github issue and resolved before creating another pull request and merging.
 
 ---
 
