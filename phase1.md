@@ -1,4 +1,4 @@
-# CITS5501 Project Phase 1 Report
+# [](https://)[](https://)[](https://)[](https://)[](https://)CITS5501 Project Phase 1 Report
 
 **Group name:**
 
@@ -6,7 +6,7 @@
 
 **Group members:**
 
-- Juan Yeremia Yovian - Student ID: 24911605 - Github: 
+- Juan Yeremia Yovian - Student ID: 24911605 - Github:
 - Jinghan Wu - Student ID: 24289151 - Github: Jinghan00
 -
 -
@@ -50,7 +50,8 @@ It would probably be harder to deal with all the different ways things can go wr
 
 **4. What build/dependency management tool will you use (e.g. uv or poetry for Python; Gradle or Maven for Java; something else)? Has anyone in the group used it before — or will this be the first time setting up a project with it?**
 
-[Answer]
+> [PENDING APPROVAL]
+> We will use **uv** to manage our dependencies and virtual environment. We chose it because it's fast, keeps a lockfile so everyone in the group installs the exact same package versions, and it's already available in the environment our project will be tested in. This will be the first time most of the group has used uv specifically, although everyone is familiar with tools like pip or venv before, so picking it up shouldn't take long.
 
 ---
 
@@ -67,7 +68,6 @@ The software could stop working if the website changes its structure, URLs, or d
 **7. Which components of your project do you think will be easiest to test? Which do you expect will be hardest?**
 
 - The easiest components to test will probably be functions that process fixed inputs, such as URL handling, file type detection, text processing, and query logic. These can be tested using known inputs and expected outputs.
-
 - The hardest components to test will be network requests and interactions with the real website. These depend on external factors such as connection problems, server errors, rate limits, and changes to the website. These behaviours are harder to reproduce consistently in tests.
 
 **8. What assumptions is your software likely to make about the website it scrapes? How could those assumptions be violated?**
@@ -97,7 +97,11 @@ If two group members disagree about whether the software is working correctly, w
 **12. [Python groups] Will you use a type checker (e.g. mypy or pyright), and if so, will it run in CI or just periodically/manually? Has anyone used one before? Do you plan to use a linter (e.g. pylint, black)?**
 **[Java groups] Is your team familiar with any static analysis/linting tools (e.g. Checkstyle, SpotBugs, PMD)? Do you plan to use any?**
 
-[Answer]
+> [PENDING APPROVAL]
+>
+> We will use **mypy** as our type checker, and it will run automatically as part of our CI pipeline on every push and pull request, rather than just being run manually. This means type errors get caught early before the code is even reviewed, rather than relying on individual memebrs remembering to run it themselves.
+>
+> For linting and formatting, we will use **ruff**, which covers what tools like pylint and black would normally do separately, but in a single tool. Some of the group has not used mypy or ruff before before, so we expect a learning curve.
 
 **13. Suppose a group member's contribution doesn't pass your linting or type checking checks. What will be the consequences? Will merges be blocked if these checks fail, or will the checks be advisory only?**
 
@@ -109,7 +113,9 @@ If a contribution does not pass the agreed linting or type checking checks, the 
 
 **14. What test framework will you use (e.g. pytest for Python; JUnit 5 for Java; something else)? Has the group used it before, or only heard of it?**
 
-[Answer]
+> [PENDING APPROVAL]
+>
+> We will use **pytest**. We chose it over Python's built-in `unittest` module because it lets us write tests with less boilerplate, and some features make it easy to run the same test against many different input values, which suits the kind of equivalence-class and boundary testing we'll need for a scraper handling lots of different edge cases. Some of the group have not used pytest before.
 
 ---
 
@@ -117,7 +123,9 @@ If a contribution does not pass the agreed linting or type checking checks, the 
 
 **15. Will you set up continuous integration (e.g. GitHub Actions) to run your test suite automatically, or run tests manually before submission? Have any members of your group used continuous integration before?**
 
-[Answer]
+> [PENDING APPROVAL]
+>
+> We will use GitHub Actions to automatically run our linter, type checker, and test suite every time someone pushes code or opens a pull request. We chose to automate this rather than run tests manually, since manual testing is easy to forget or skip, and automation means every change gets checked the same way without relying on someone remembering to do it. Most members of the group have not set up CI before, so this will be a new process for the team to learn.
 
 ---
 
