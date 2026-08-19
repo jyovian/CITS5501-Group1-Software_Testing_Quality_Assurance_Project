@@ -9,7 +9,7 @@
 - Juan Yeremia Yovian - Student ID: 24911605 - Github:
 - Jinghan Wu - Student ID: 24289151 - Github: Jinghan00
 - Shee Wang - Student ID: 24368932 - Github: sheewang
-- Laura Acosta Vargas - Student ID: 23802255 - Github: laura-camila-av
+- Gelani Nimit Sureshbhai - Student ID: 24765784 - Github: Fighterdx
 -
 
 ## Planning and organization
@@ -20,7 +20,7 @@ Our Collaboration & Workflow Plan is maintained in the Git repository at `docs/c
 
 ##### 2. What tool or approach are you using to track assigned tasks and completion? Why did you choose it? Has anyone in the group used it before?
 
-We are using GitHub Projects that links directly to our repository's Issues. This was chosen because it's a simple and convenient way of tracking our progress. Also, Github provides a clear and permanent history of changes which is useful for reviewing decisions and resolving any conflicts. No extra app or account or tool required. Everyone already has a GitHub account. It also links directly to commits/PRs. Some members of the group have used GitHub Projects before, while others are already familiar with basic GitHub functions.
+We are using GitHub Projects that links directly to our repository's Issues. This was chosen because it's a simple and convenient way of tracking our progress. No extra app or account or tool required. Everyone already has a GitHub account. It also links directly to commits/PRs. Some members of the group have used GitHub Projects before, while others are already familiar with basic GitHub functions.
 
 ---
 
@@ -84,7 +84,7 @@ Our software will probably assume that the website structure stays mostly consis
 
 ##### 9. Suppose a serious bug is discovered two days before the deadline. How would your team investigate and respond?
 
-If a serious bug is found two days before the deadline, we would first reproduce it and identify the affected component. The issue would be given high priority and assigned to appropriate team members, ideally someone who worked on that section of code, to minimise further errors. If necessary, non-essential work would be paused. After fixing the bug, we would run the relevant tests and regression tests, review the change, and merge it only after confirming that the problem is resolved.
+If a serious bug is found two days before the deadline, we would first reproduce it and identify the affected component. The issue would be given high priority and assigned to appropriate team members. If necessary, non-essential work would be paused. After fixing the bug, we would run the relevant tests and regression tests, review the change, and merge it only after confirming that the problem is resolved.
 
 ##### 10. What will convince your team that a feature is "finished"?
 
@@ -156,12 +156,15 @@ The biggest challenge will likely be dealing with factors outside our control, e
 
 ##### 20. What will be your code review process — does someone other than the author review changes before merging, or is this informal?
 
-Changes will be made on separate branches and submitted through Pull Requests. Other team members will review the changes before they are merged into the protected main branch. Reviewers will check the code, tests, and whether the change meets the project requirements. Reviews should include constructive feedback and comments in all pull requests they review or approve as proof that a proper check was actually completed. Any issues found during review should be created as a Github issue and resolved before creating another pull request and merging.
+Changes will be made on separate branches and submitted through Pull Requests. Other team members will review the changes before they are merged into the protected main branch. Reviewers will check the code, tests, and whether the change meets the project requirements. Any issues found during review should be fixed before approval and merging.
 
 ---
 
 ## Assumptions
 
-List any assumptions made while completing this report, numbered (A001, A002, ...), with justification.
-
-- **A001:** [Assumption] — [Reasoning]
+- **A001:** We're assuming that the policy library website we'll eventually be provided is a fairly typical server-rendered website, meaning that the papers are linked straight from regular HTML pages rather than being loaded via JavaScript. This is a guess because we won't see the site until after Phase 1, but it's the more typical scenario and the foundation of our intended tools, which combines HTML parsing with requests style fetching. If it turns out that the website uses a lot of JavaScript, we would have to replace it with something like a headless browser.
+- **A002:** We're assuming that the website's materials are open to the public and don't require a login. If identification turns out to be necessary, we haven't yet scoped that additional work because it wasn't taken into account in our risk planning for Q5–Q8.
+- **A003:** We're assuming that scraping this specific website is permitted due to its robots.txt, conditions of use, or the fact that it was put up just for this unit. This concerns for how carefully our scraper needs to act (request rate, retry logic), which relates into our response for Q5.
+- **A004:** We're assuming the GitHub Actions runners we use for CI will have normal outbound internet access, in case any of our tests end up hitting the real site rather than a mocked version of it. If that's not reliable, we'll need to rely more on mocked responses for CI and treat live-site tests as something we only run locally.
+- **A005:** The project brief only guarantees that `python3`, `uv`, and `openjdk-21-jdk` are installed in the marking environment (see section 2.5). We're assuming that's enough that mypy, ruff, and pytest don't need to be separately installed, because `uv` will pull them in from our project's lockfile automatically.
+- **A006:** We're assuming the scope stays limited to the three document formats named in the brief PDF, Word, and RTF. If the real site also serves other formats (e.g. plain text or OpenDocument files), we'd treat those as out of scope unless told otherwise, rather than trying to support everything we might encounter.
