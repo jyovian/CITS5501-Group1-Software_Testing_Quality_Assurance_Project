@@ -1,12 +1,10 @@
 # CITS5501 Project Phase 1 Report
 
-**Group name:**
-
 **Repository:** [CITS5501 Group 1 Repository](https://github.com/jyovian/CITS5501-Group1-Software_Testing_Quality_Assurance_Project)
 
 **Group members:**
 
-- Juan Yeremia Yovian - Student ID: 24911605 - Github:
+- Juan Yeremia Yovian - Student ID: 24911605 - Github: jyovian
 - Jinghan Wu - Student ID: 24289151 - Github: Jinghan00
 - Shee Wang - Student ID: 24368932 - Github: sheewang
 - Gelani Nimit Sureshbhai - Student ID: 24765784 - Github: Fighterdx
