@@ -1,7 +1,7 @@
 """Small fault-simulation example for Task 3b.
 
 The local server acts like the policy website, but deliberately returns an
-HTTP 500 response.  This lets us check error handling without sending test
+HTTP 503 response.  This lets us check error handling without sending test
 requests to the real website.
 """
 
@@ -17,7 +17,7 @@ class FakePolicyHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         if self.path == "/policy/example.html":
             body = b"Temporary server problem"
-            self.send_response(500)
+            self.send_response(503)
             self.send_header("Content-Type", "text/plain; charset=utf-8")
             self.send_header("Content-Length", str(len(body)))
             self.end_headers()

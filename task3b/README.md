@@ -1,8 +1,8 @@
 # Task 3b - fake server error example
 
 This example checks how a scraper handles a server-side error. It starts a
-small HTTP server on the local computer and makes the server return `500
-Internal Server Error` for a policy page. No request is sent to the real UWA
+small HTTP server on the local computer and makes the server return `503
+Service Unavailable` for a policy page. No request is sent to the real UWA
 policy website.
 
 Run the demonstration from the repository root:
@@ -16,7 +16,7 @@ Expected output (the port number will be different):
 ```text
 Request: http://127.0.0.1:12345/policy/example.html
 Success: False
-Result: HTTP 500: Internal Server Error
+Result: HTTP 503: Service Unavailable
 ```
 
 The important result is that the error is caught and reported. The program

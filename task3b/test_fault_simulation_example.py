@@ -8,7 +8,7 @@ class FaultSimulationExampleTest(unittest.TestCase):
         success, result = run_demo()
 
         self.assertFalse(success)
-        self.assertIn("HTTP 500", result)
+        self.assertIn("HTTP 503", result)
 
 
 if __name__ == "__main__":
