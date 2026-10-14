@@ -58,22 +58,25 @@
 
 ## 3. Task 3 – Fixtures and test doubles
 
-<!-- Owners: ______ (3.1–3.3), Shee Wang (3.4)
-     Write ONLY inside this section. Delete these comments when done. -->
-
 ### 3.1 Test oracle
 
-<!-- What is our "source of truth" for whether the scraper works? (saved HTML, sample policy files, local server…) -->
+For testing, we can use saved HTML pages and sample policy files as fixtures. For example, a saved HTML page can contain a fixed set of PDF, DOCX and RTF links. Because we already know which links are inside the page, we can check whether the scraper finds the correct ones.
+
+We can also keep some valid sample files and some broken or corrupted files. This can help us check whether the scraper can tell the difference between a successful download and an invalid file. These fixtures are more reliable than always using the live website because the files will not change between test runs. A small local server can also be used when we need to test HTTP behaviour.
 
 ### 3.2 Rate limiting
 
-<!-- Does the live site limit lots of requests? What did you observe?
-     If it does, how would we run our tests without the live site? -->
+We tested the live policy website using `curl` in Windows PowerShell. We sent 10 requests with a one-second delay between each request. Requests 1–6 returned HTTP 200. Requests 7 and 8 returned HTTP 429 (Too Many Requests), and requests 9 and 10 returned HTTP 200 again.
+
+From this test, the website seems to use temporary rate limiting when several requests are sent in a short time. Because of this, our automated tests should not keep sending requests to the real website. We can instead use saved HTML files, sample policy files, mocked responses, or a local server. This also makes the tests easier to repeat without putting extra load on the real site.
 
 ### 3.3 Simulating failures
 
-<!-- Can test doubles simulate timeouts, interrupted downloads, connection failures, slow responses?
-     Which Python tools would we use? -->
+Test doubles can be useful for failures that are hard to create on the real website. In Python, tools such as `unittest.mock`, `pytest` monkeypatching, `responses`, and `requests-mock` can be used to replace real HTTP requests with fake responses.
+
+For example, a mock can raise a timeout or connection error. It can also return incomplete data to simulate an interrupted download. A local test server can be used to create a slow response by waiting before sending the result.
+
+Using these methods is safer than trying to create the same problems on the real website. It also means we can repeat the same failure many times and know what result we should expect.
 
 ### 3.4 Failure demonstration
 
