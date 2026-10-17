@@ -72,9 +72,9 @@ From this test, the website seems to use temporary rate limiting when several re
 
 ### 3.3 Simulating failures
 
-Test doubles can be useful for failures that are hard to create on the real website. In Python, tools such as `unittest.mock`, `pytest` monkeypatching, `responses`, and `requests-mock` can be used to replace real HTTP requests with fake responses.
+Test doubles can be useful for failures that are hard to create on the real website. Because our prototype imports `urlopen` directly from `urllib.request`, we should patch the name where it is used, such as `prototype.urlopen`, rather than patching `urllib.request.urlopen`. Using `unittest.mock.patch` (or pytest's monkeypatching) lets us replace it with a fake that raises `TimeoutError` or `URLError` to simulate a timeout or connection failure.
 
-For example, a mock can raise a timeout or connection error. It can also return incomplete data to simulate an interrupted download. A local test server can be used to create a slow response by waiting before sending the result.
+The fake can also return controlled, incomplete bytes to simulate an interrupted download. For slow responses or a connection that closes before the promised data arrives, a small local `http.server` is more suitable: it can delay its response or send only part of the content. This is the approach used by the failure demonstration in §3.4.
 
 Using these methods is safer than trying to create the same problems on the real website. It also means we can repeat the same failure many times and know what result we should expect.
 
