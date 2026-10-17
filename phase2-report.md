@@ -39,12 +39,7 @@
 
 ### 2.1 Expected scraper behaviour
 
-<!-- For each of the 5 scenarios, what should a reasonable scraper do?
-     1. Site structure changes
-     2. HTML is truncated
-     3. Site or link times out (short or long)
-     4. 4xx / 5xx status codes
-     5. Link doesn't return a valid office/PDF file (e.g. HTML instead of PDF, corrupt PDF) -->
+Across all scenarios, a reasonable scraper should never silently report success, contain failures so that one bad link does not stop the others, and in the case of an error, report clearly what went wrong. In several cases the correct response is simply to report the failure and stop rather than recover.
 
 ### 2.2 Test cases
 
