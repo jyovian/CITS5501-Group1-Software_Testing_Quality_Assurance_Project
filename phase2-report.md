@@ -34,26 +34,37 @@
 
 ## 2. Task 2 – Test design
 
-<!-- Owner: ______
+<!-- Owner: Laura
      Write ONLY inside this section. Delete these comments when done. -->
 
 ### 2.1 Expected scraper behaviour
 
-<!-- For each of the 5 scenarios, what should a reasonable scraper do?
-     1. Site structure changes
-     2. HTML is truncated
-     3. Site or link times out (short or long)
-     4. 4xx / 5xx status codes
-     5. Link doesn't return a valid office/PDF file (e.g. HTML instead of PDF, corrupt PDF) -->
+Across all scenarios, a reasonable scraper should never silently report success, contain failures so that one bad link does not stop the others, and in the case of an error, report clearly what went wrong. In several cases the correct response is simply to report the failure and stop rather than recover. 
+
+* If the scraper finds no links, or none that match its expected pattern, it should report that the page structure may have changed. It should not download anything or report success, and it should exit with a non-zero status. A silent "0 documents, done" is the worst outcome, because it looks like a pass.
+* The scraper should detect that the page is incomplete (for example, no closing `</html>`, or a body shorter than `Content-Length`). It should warn that results may be incomplete, and must not request a half-written URL. Links from the complete part of the page may be used, but the run should not be reported as fully successful.
+* Every request needs a timeout. A slow link that eventually responds within the timeout is fine. A link that exceeds it should be recorded as failed after a limited number of retries, and the scraper should carry on with the remaining documents. If the index page itself never responds, the scraper should give up after the timeout and report a clear error.
+* A 4xx means the request is at fault, so the scraper should not retry it (the exception is 429, where it should respect `Retry-After`). A 5xx may be transient, so a small, capped number of retries is reasonable. After that, the document is recorded as failed with its status code. If the index page returns a 4xx or 5xx, the scraper should abort with a clear message.
+* An HTTP 200 is not enough. The scraper should check the declared content type and the file signature (`%PDF` for PDFs, `PK` for `.docx`), and ideally that the file can actually be opened. Anything that fails these checks should be reported as failed ("not a valid PDF") and not counted as a success.
 
 ### 2.2 Test cases
 
-<!-- 6–10 tests, at least 1 per scenario. -->
-
+All tests are run against a saved HTML page or a local test server (not the live site), so the responses are exactly controlled. Timeout values below are placeholders for whatever the scraper is configured with.
+ 
 | ID | Scenario | Arrange | Act | Assert |
 |---|---|---|---|---|
-| T001 | | | | |
+| T001 | 1 – Structure change | Saved index page where the document links are no longer `<a>` tags (e.g. documents listed as plain text or rendered by JavaScript). | Run the scraper against it. | Reports "no document links found / structure may have changed"; makes no download requests; exits non-zero; does not print a success summary. |
+| T002 | 1 – Structure change | Index page with `<a>` tags, but every link is a handler URL such as `/download.aspx?id=12` with no file extension. | Run the scraper against it. | Same as T001: zero matches is flagged as a possible structure change, not treated as "nothing to do". |
+| T003 | 2 – Truncated HTML | Server sends an index page cut off mid-tag (e.g. ending in `<a href="/policy/x.p`) with no `</html>`. | Run the scraper against it. | Warns the page appears truncated; does not request the partial URL; run is not reported as fully successful. |
+| T004 | 3 – Timeout (short, one link) | Local server where one document link waits longer than the timeout before responding. Other links respond normally. | Run the scraper with a short timeout (e.g. 2 s). | That link is recorded as failed (timeout) after at most the allowed retries; the remaining documents still download; total time stays bounded (about timeout × attempts). |
+| T005 | 3 – Timeout (long, index) | Local server that accepts the connection to the index page but never sends a response. | Run the scraper with the same timeout. | Scraper gives up after the timeout and prints a clear error; no download attempts; exits non-zero; does not hang. |
+| T006 | 4 – 4xx | Local server returns 404 for one document link; other links are normal. | Run the scraper. | The 404 is recorded as failed with status 404 and is **not retried** (server log shows one request for that URL); other documents succeed. |
+| T007 | 4 – 5xx | Local server returns 503 for one document link every time. | Run the scraper. | Scraper retries no more than the configured cap, then records the document as failed with status 503; total requests stay within the 20-request limit. |
+| T008 | 4 – Index error | Local server returns 500 (and, in a second run, 403) for the index page. | Run the scraper. | Aborts with a clear message including the status code; makes no document requests; exits non-zero. |
+| T009 | 5 – HTML instead of PDF | Local server returns 200 for a `.pdf` link, with `Content-Type: text/html` and an HTML body. | Run the scraper. | Document is reported as failed (e.g. "not a valid PDF"); first bytes are not `%PDF`; the run is not counted as a successful download. |
+| T010 | 5 – Corrupt PDF | Local server returns 200 with `Content-Type: application/pdf` for a file that starts with `%PDF-1.6` but is truncated or filled with garbage after the header. | Run the scraper. | Document is reported as failed because the file cannot be opened (e.g. `pypdf` raises an error or `%%EOF` is missing); not counted as a success. |
 
+Note that T001–T010 describe a production scraper. The Task 1 prototype would fail several of them by design, inlcuding no timeouts, and success meaning only HTTP 200, which is the gap this suite is meant to expose. Also, timeout length, retry cap and exit codes are design choices. If the team wants them recorded, add them as assumptions numbered from A007.
 ---
 
 ## 3. Task 3 – Fixtures and test doubles
