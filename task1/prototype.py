@@ -37,6 +37,11 @@ USER_AGENT = "CITS5501-Group1-prototype/0.1 (student project)"
 # PDFs start with "%PDF" and .docx files start with "PK".
 NUM_PREVIEW_BYTES = 8
 
+# How long to wait after a 429 if Retry-After is missing or not a plain number
+# of seconds (it may also be a date), and the longest we are willing to wait.
+DEFAULT_RETRY_WAIT = 10
+MAX_RETRY_WAIT = 60
+
 
 class LinkCollector(HTMLParser):
     """Collects the href value of every <a> tag in a page."""
@@ -54,6 +59,26 @@ class LinkCollector(HTMLParser):
                     self.hrefs.append(value)
 
 
+class BudgetExhausted(Exception):
+    """Raised when the request limit is reached before a request can be made."""
+
+
+def retry_wait_seconds(retry_after: str | None) -> int:
+    """Returns how many seconds to wait, given a Retry-After header value.
+
+    Only the "number of seconds" form is understood. If the header is missing,
+    negative, or in the HTTP-date form, DEFAULT_RETRY_WAIT is used instead.
+    The result is capped at MAX_RETRY_WAIT.
+    """
+    try:
+        wait = int(retry_after) if retry_after is not None else DEFAULT_RETRY_WAIT
+    except ValueError:
+        wait = DEFAULT_RETRY_WAIT
+    if wait < 0:
+        wait = DEFAULT_RETRY_WAIT
+    return min(wait, MAX_RETRY_WAIT)
+
+
 class RequestBudget:
     """Counts HTTP requests and refuses to go over a fixed limit."""
 
@@ -69,12 +94,13 @@ class RequestBudget:
 
         If the server says we are rate limited (HTTP 429), wait for the
         number of seconds in its Retry-After header and try again. Every
-        attempt counts against the budget.
+        attempt counts against the budget; raises BudgetExhausted when it
+        runs out.
         """
         while True:
             # Stop if we have already used up all our allowed requests.
             if self.remaining() <= 0:
-                raise RuntimeError("request budget used up")
+                raise BudgetExhausted("request budget used up")
             self.used += 1
 
             request = Request(url, headers={"User-Agent": USER_AGENT})
@@ -86,7 +112,7 @@ class RequestBudget:
                 # urlopen raises HTTPError for 4xx/5xx status codes.
                 if error.code == 429:
                     # "Too Many Requests": wait as long as the server asks, then retry.
-                    wait = int(error.headers.get("Retry-After", "10"))
+                    wait = retry_wait_seconds(error.headers.get("Retry-After"))
                     print(f"  (rate limited, waiting {wait}s)")
                     time.sleep(wait)
                     continue
@@ -135,7 +161,11 @@ def main() -> None:
 
     # Step 1: download the index page.
     print(f"Fetching index page: {args.start_url}")
-    status, _, body = budget.fetch(args.start_url)
+    try:
+        status, _, body = budget.fetch(args.start_url)
+    except BudgetExhausted:
+        print("Request limit reached before the index page loaded; giving up.")
+        return
     print(f"  HTTP {status}, {len(body)} bytes")
     if status != 200:
         print("Could not fetch the index page; giving up.")
@@ -152,7 +182,11 @@ def main() -> None:
             print("Request limit reached; giving up.")
             break
 
-        status, content_type, data = budget.fetch(url)
+        try:
+            status, content_type, data = budget.fetch(url)
+        except BudgetExhausted:
+            print("Request limit reached; giving up.")
+            break
 
         # A download counts as successful if the server returned 200 OK.
         ok = status == 200

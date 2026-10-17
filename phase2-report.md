@@ -34,9 +34,11 @@ This is how it works:
 3. It downloads the first 5 links found (this can be changed with
    `--max-docs`). Every request, including the index page, counts towards a
    limit of 20 (`--max-requests`), and the prototype stops when the limit is
-   reached. If the server responds with `429 Too Many Requests`, it waits for
-   the time given in the `Retry-After` header and tries again. Downloaded
-   files are kept in memory only and are not saved.
+   reached, printing a message and the summary line instead of crashing. If
+   the server responds with `429 Too Many Requests`, it waits for the number
+   of seconds given in the `Retry-After` header (at most 60) and tries again.
+   If that header is missing or uses the date form, it waits 10 seconds.
+   Downloaded files are kept in memory only and are not saved.
 4. For each document it prints whether the download succeeded (HTTP 200),
    the URL, the HTTP status, the declared `Content-Type`, the size in bytes
    and the first 8 bytes of the file. It finishes with a summary line.
