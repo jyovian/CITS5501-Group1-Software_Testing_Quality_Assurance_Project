@@ -136,10 +136,9 @@ which is linked on `www.uwa.edu.au` rather than on the policy site itself.
 
 <!-- 6–10 tests, at least 1 per scenario. -->
 
-
-| ID   | Scenario | Arrange | Act | Assert |
-| ---- | -------- | ------- | --- | ------ |
-| T001 |          |         |     |        |
+| ID | Scenario | Arrange | Act | Assert |
+|---|---|---|---|---|
+| T001 | | | | |
 
 ---
 
@@ -190,7 +189,6 @@ valid policy content.
 
 <!-- 5–8 ideas for breaking another team's scraper. -->
 
-
 | # | Assumption being challenged | Input / environment used | What counts as failure, and how it's detected |
-| - | --------------------------- | ------------------------ | --------------------------------------------- |
-| 1 |                             |                          |                                               |
+|---|---|---|---|
+| 1 | | | |
