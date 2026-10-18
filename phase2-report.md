@@ -109,13 +109,13 @@ which is linked on `www.uwa.edu.au` rather than on the policy site itself.
 
 ### 1.3 Assumptions
 
-- A001: All policy documents are linked directly from the index page.
-- A002: Links ending in `.pdf`, `.doc`, `.docx` or `.rtf` are policy
-  documents. `.pptx` files are out of scope (Phase 1, A006).
-- A003: Only links on the same host as the index page are part of the site.
-- A004: An HTTP 200 response means the download succeeded.
-- A005: The index page is UTF-8, as the server declares.
-- A006: Waiting for the `Retry-After` time after a 429 response is enough to
+- **A001:** All policy documents are linked directly from the index page.
+- **A002:** Links ending in `.pdf`, `.doc`, `.docx` or `.rtf` are policy
+  documents. `.pptx` files are out of scope.
+- **A003:** Only links on the same host as the index page are part of the site.
+- **A004:** An HTTP 200 response means the download succeeded.
+- **A005:** The index page is UTF-8, as the server declares.
+- **A006:** Waiting for the `Retry-After` time after a 429 response is enough to
   stay within the rate limit.
 
 ---
@@ -194,8 +194,8 @@ overload or interfere with the live site would also be inappropriate. The local
 server gives the same response on every run and does not send test traffic to
 the real site.
 
-**A3-001:** An HTTP 503 response is treated as a failed download and not as
-valid policy content.
+- **A007:** An HTTP 503 response is treated as a failed download and not as
+  valid policy content.
 
 ---
 
