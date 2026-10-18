@@ -16,6 +16,8 @@ class FakePolicyHandler(BaseHTTPRequestHandler):
     """Serve a small policy index with one unavailable PDF link."""
 
     def do_GET(self):
+        """Serve the index page, a 503 for the PDF link, and 404 otherwise."""
+
         if self.path == "/policy/":
             body = (
                 b"<!doctype html><html><body>"
