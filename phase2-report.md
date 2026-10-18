@@ -58,22 +58,27 @@
 
 ## 3. Task 3 – Fixtures and test doubles
 
-<!-- Owners: ______ (3.1–3.3), Shee Wang (3.4)
-     Write ONLY inside this section. Delete these comments when done. -->
-
 ### 3.1 Test oracle
 
-<!-- What is our "source of truth" for whether the scraper works? (saved HTML, sample policy files, local server…) -->
+For testing, we can use saved HTML pages and sample policy files as fixtures. For example, a saved HTML page can contain a fixed set of PDF, DOCX and RTF links. Because we already know which links are inside the page, we can check whether the scraper finds the correct ones.
+
+We can also keep some valid sample files and some broken or corrupted files. This can help us check whether the scraper can tell the difference between a successful download and an invalid file. These fixtures are more reliable than always using the live website because the files will not change between test runs. A small local server can also be used when we need to test HTTP behaviour.
 
 ### 3.2 Rate limiting
 
-<!-- Does the live site limit lots of requests? What did you observe?
-     If it does, how would we run our tests without the live site? -->
+We tested the live policy website using `curl` in Windows PowerShell. We sent 10 requests with a one-second delay between each request. Requests 1–6 returned HTTP 200. Requests 7 and 8 returned HTTP 429 (Too Many Requests), and requests 9 and 10 returned HTTP 200 again.
+
+From this test, the website seems to use temporary rate limiting when several requests are sent in a short time. Because of this, our automated tests should not keep sending requests to the real website. We can instead use saved HTML files, sample policy files, mocked responses, or a local server. This also makes the tests easier to repeat without putting extra load on the real site.
 
 ### 3.3 Simulating failures
 
-<!-- Can test doubles simulate timeouts, interrupted downloads, connection failures, slow responses?
-     Which Python tools would we use? -->
+Test doubles can be used to simulate failures that are difficult to reproduce on the real website. Since our prototype uses `urllib`, we can use `unittest.mock.patch` to replace `urlopen` with a fake function.
+
+For example, the fake `urlopen` can raise a `TimeoutError` or `URLError` to test how the scraper handles timeouts and connection failures. Because the prototype imports `urlopen` directly, it should be patched where it is used, such as `prototype.urlopen`, rather than patching `urllib.request.urlopen`.
+
+For slow responses or interrupted downloads, a local `http.server` can be used to control how the server responds. The server can deliberately delay its response or stop sending data before the download is complete. Section 3.4 provides a similar local-server example for a `503 Service Unavailable` response.
+
+Using these methods is safer and more repeatable than trying to create the same failures on the real policy website.
 
 ### 3.4 Failure demonstration
 
