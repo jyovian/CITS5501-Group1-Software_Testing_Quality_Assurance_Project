@@ -34,18 +34,16 @@
 
 ## 2. Task 2 – Test design
 
-<!-- Owner: Laura
-     Write ONLY inside this section. Delete these comments when done. -->
 
 ### 2.1 Expected scraper behaviour
 
 Across all scenarios, a reasonable scraper should never silently report success, contain failures so that one bad link does not stop the others, and in the case of an error, report clearly what went wrong. In several cases the correct response is simply to report the failure and stop rather than recover. 
 
-* If the scraper finds no links, or none that match its expected pattern, it should report that the page structure may have changed. It should not download anything or report success, and it should exit with a non-zero status. A silent "0 documents, done" is the worst outcome, because it looks like a pass.
-* The scraper should detect that the page is incomplete (for example, no closing `</html>`, or a body shorter than `Content-Length`). It should warn that results may be incomplete, and must not request a half-written URL. Links from the complete part of the page may be used, but the run should not be reported as fully successful.
-* Every request needs a timeout. A slow link that eventually responds within the timeout is fine. A link that exceeds it should be recorded as failed after a limited number of retries, and the scraper should carry on with the remaining documents. If the index page itself never responds, the scraper should give up after the timeout and report a clear error.
-* A 4xx means the request is at fault, so the scraper should not retry it (the exception is 429, where it should respect `Retry-After`). A 5xx may be transient, so a small, capped number of retries is reasonable. After that, the document is recorded as failed with its status code. If the index page returns a 4xx or 5xx, the scraper should abort with a clear message.
-* An HTTP 200 is not enough. The scraper should check the declared content type and the file signature (`%PDF` for PDFs, `PK` for `.docx`), and ideally that the file can actually be opened. Anything that fails these checks should be reported as failed ("not a valid PDF") and not counted as a success.
+* Scenario 1: If the scraper finds no links, or none that match its expected pattern, it should report that the page structure may have changed. It should not download anything or report success, and it should exit with a non-zero status. A silent "0 documents, done" is the worst outcome, because it looks like a pass.
+* Scenario 2: The scraper should detect that the page is incomplete (for example, no closing `</html>`, or a body shorter than `Content-Length`). It should warn that results may be incomplete, and must not request a half-written URL. Links from the complete part of the page may be used, but the run should not be reported as fully successful.
+* Scenario 3: Every request needs a timeout. A slow link that eventually responds within the timeout is fine. A link that exceeds it should be recorded as failed after a limited number of retries, and the scraper should carry on with the remaining documents. If the index page itself never responds, the scraper should give up after the timeout and report a clear error.
+* Scenario 4: A 4xx means the request is at fault, so the scraper should not retry it (the exception is 429, where it should respect `Retry-After`). A 5xx may be transient, so a small, capped number of retries is reasonable. After that, the document is recorded as failed with its status code. If the index page returns a 4xx or 5xx, the scraper should abort with a clear message.
+* Scenario 5: An HTTP 200 is not enough. The scraper should check the declared content type and the file signature (`%PDF` for PDFs, `PK` for `.docx`), and ideally that the file can actually be opened. Anything that fails these checks should be reported as failed ("not a valid PDF") and not counted as a success.
 
 ### 2.2 Test cases
 
@@ -64,7 +62,8 @@ All tests are run against a saved HTML page or a local test server (not the live
 | T009 | 5 – HTML instead of PDF | Local server returns 200 for a `.pdf` link, with `Content-Type: text/html` and an HTML body. | Run the scraper. | Document is reported as failed (e.g. "not a valid PDF"); first bytes are not `%PDF`; the run is not counted as a successful download. |
 | T010 | 5 – Corrupt PDF | Local server returns 200 with `Content-Type: application/pdf` for a file that starts with `%PDF-1.6` but is truncated or filled with garbage after the header. | Run the scraper. | Document is reported as failed because the file cannot be opened (e.g. `pypdf` raises an error or `%%EOF` is missing); not counted as a success. |
 
-Note that T001–T010 describe a production scraper. The Task 1 prototype would fail several of them by design, inlcuding no timeouts, and success meaning only HTTP 200, which is the gap this suite is meant to expose. Also, timeout length, retry cap and exit codes are design choices. If the team wants them recorded, add them as assumptions numbered from A007.
+
+
 ---
 
 ## 3. Task 3 – Fixtures and test doubles
